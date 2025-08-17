@@ -9,86 +9,43 @@
   <meta property="og:description" content="Quick, simple one-page profile for employers." />
   <style>
     :root{
-      --bg:#0f172a;           /* slate-900 */
-      --panel:#111827;        /* gray-900 */
-      --muted:#94a3b8;        /* slate-400 */
-      --text:#e5e7eb;         /* gray-200 */
-      --accent:#22d3ee;       /* cyan-400 */
-      --accent-2:#a78bfa;     /* violet-400 */
-      --card:#0b1220;         /* deep panel */
-      --ring:rgba(34,211,238,0.5);
-      --radius:16px;
+      --bg:#0f172a; --panel:#111827; --muted:#94a3b8; --text:#e5e7eb;
+      --accent:#22d3ee; --accent-2:#a78bfa; --card:#0b1220;
+      --ring:rgba(34,211,238,0.5); --radius:16px;
     }
     * { box-sizing: border-box; }
-    html, body { margin:0; padding:0; background:linear-gradient(120deg,var(--bg),#0a1220); color:var(--text); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif; line-height:1.6;}
+    html, body { margin:0; padding:0; background:linear-gradient(120deg,var(--bg),#0a1220);
+      color:var(--text); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; line-height:1.6;}
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
-    header {
-      position: sticky; top:0; backdrop-filter: blur(8px);
-      background: rgba(2,6,23,0.7); border-bottom:1px solid rgba(255,255,255,0.06); z-index:10;
-    }
-    .nav {
-      max-width: 960px; margin: 0 auto; display:flex; align-items:center; justify-content:space-between;
-      padding: 10px 16px;
-    }
-    .brand { font-weight:700; letter-spacing:0.2px; }
-    .brand small { color: var(--muted); font-weight:500; }
+    header { position: sticky; top:0; backdrop-filter: blur(8px);
+      background: rgba(2,6,23,0.7); border-bottom:1px solid rgba(255,255,255,0.06); z-index:10; }
+    .nav { max-width: 960px; margin: 0 auto; display:flex; align-items:center; justify-content:space-between; padding: 10px 16px; }
+    .brand { font-weight:700; } .brand small { color: var(--muted); font-weight:500; }
     .links a { margin-left:14px; font-weight:600; }
     .container { max-width: 960px; margin: 0 auto; padding: 24px 16px 64px; }
-    .hero {
-      display:grid; grid-template-columns: 1.2fr 1fr; gap: 20px; align-items:center; margin-top: 18px;
-    }
-    .card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-      border:1px solid rgba(255,255,255,0.06);
-      border-radius: var(--radius);
-      padding: 18px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-    }
-    .badge { display:inline-block; padding:4px 10px; border-radius:999px; font-size:12px; color:#0f172a; background:linear-gradient(90deg,var(--accent),var(--accent-2)); font-weight:700;}
+    .hero { display:grid; grid-template-columns: 1.2fr 1fr; gap: 20px; align-items:center; margin-top: 18px; }
+    .card { background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.06); border-radius: var(--radius); padding: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
+    .badge { display:inline-block; padding:4px 10px; border-radius:999px; font-size:12px; color:#0f172a;
+      background:linear-gradient(90deg,var(--accent),var(--accent-2)); font-weight:700;}
     h1 { margin:8px 0 6px; font-size: clamp(26px, 4vw, 38px); line-height:1.15;}
     p.lead { color: var(--muted); margin:0 0 4px;}
     .muted { color: var(--muted); }
     section { margin-top: 28px; }
     h2 { font-size: 22px; margin: 0 0 12px; }
-    .grid {
-      display:grid; grid-template-columns: repeat(3,1fr); gap: 14px;
-    }
-    .project{ transition: transform .15s ease, box-shadow .15s ease;}
-    .project:hover{ transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.35); }
-    .project h3{ margin: 8px 0 6px; font-size: 18px;}
-    .project p{ margin:0 0 10px; color: var(--muted); }
-    .stack { font-size: 12px; color: var(--text); opacity:0.8; }
+    .grid { display:grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
     .row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
-    input[type="text"], textarea {
-      width:100%; background:var(--card); color:var(--text);
-      border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:10px 12px;
-      outline:none; transition: box-shadow .15s ease, border-color .15s ease; resize: vertical;
-    }
-    input[type="text"]:focus, textarea:focus {
-      border-color: var(--accent); box-shadow: 0 0 0 6px var(--ring);
-    }
-    .upload {
-      display:grid; grid-template-columns: 1fr 1fr; gap:14px; align-items:start;
-    }
-    .preview {
-      aspect-ratio: 16/10; width:100%; border-radius:14px; object-fit:cover; background: #0a0f1a; border:1px dashed rgba(255,255,255,0.15);
-    }
-    .footer {
-      margin-top: 40px; padding-top: 16px; border-top:1px solid rgba(255,255,255,0.06); color:var(--muted); font-size:14px;
-      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
-    }
-    button {
-      background: linear-gradient(90deg,var(--accent),var(--accent-2)); color:#0b1220; border:none; font-weight:800;
-      padding:10px 14px; border-radius:12px; cursor:pointer; transition: transform .1s ease, filter .1s ease;
-    }
-    button:hover { transform: translateY(-1px); filter: brightness(1.04); }
-    .pill { padding:6px 10px; border:1px solid rgba(255,255,255,0.12); border-radius:999px; }
-    @media (max-width: 840px){
-      .hero { grid-template-columns: 1fr; }
-      .grid { grid-template-columns: 1fr; }
-      .upload { grid-template-columns: 1fr; }
-    }
+    textarea { width:100%; background:var(--card); color:var(--text); border:1px solid rgba(255,255,255,0.1); border-radius:12px;
+      padding:10px 12px; resize: vertical; }
+    .upload { display:grid; grid-template-columns: 1fr 1fr; gap:14px; align-items:start; }
+    .preview { aspect-ratio: 16/10; width:100%; border-radius:14px; object-fit:cover; background:#0a0f1a;
+      border:1px dashed rgba(255,255,255,0.15); }
+    .footer { margin-top: 40px; padding-top: 16px; border-top:1px solid rgba(255,255,255,0.06);
+      color:var(--muted); font-size:14px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+    button { background: linear-gradient(90deg,var(--accent),var(--accent-2)); color:#0b1220; border:none; font-weight:800;
+      padding:10px 14px; border-radius:12px; cursor:pointer; }
+    @media (max-width: 840px){ .hero { grid-template-columns: 1fr; } .grid { grid-template-columns: 1fr; } .upload { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -96,160 +53,76 @@
     <div class="nav">
       <div class="brand">Del Harris <small>• Solutions Architect</small></div>
       <nav class="links">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#secret">Fun Fact</a>
-        <a href="#gallery">Image</a>
-        <a href="#contact">Contact</a>
+        <a href="#about">About</a><a href="#projects">Projects</a><a href="#secret">Fun Fact</a>
+        <a href="#gallery">Image</a><a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
   <main class="container">
-    <!-- HERO / INTRO -->
     <section class="hero">
       <div class="card">
         <span class="badge">Hello!</span>
         <h1>Tech nerd. Problem solver. Builder.</h1>
         <p class="lead">I love turning complex ideas into simple, usable experiences — from backend APIs to clean UIs. Below is a quick snapshot for hiring managers.</p>
-        <div class="row" style="margin-top:10px;">
-          <span class="pill">API Design</span>
-          <span class="pill">JavaScript</span>
-          <span class="pill">Data &amp; Analytics</span>
-          <span class="pill">Payments</span>
-        </div>
       </div>
       <div class="card">
         <h2 id="about">About Me</h2>
-        <p>
-          I'm Del — a hands-on solutions architect who enjoys the “nerd stuff”: digging through logs, sketching sequence diagrams,
-          wiring mock APIs, and polishing user flows. Why tech? Because it's the best playground for curiosity:
-          you can imagine something at 9am and have a working prototype by lunch.
-        </p>
-        <p class="muted">
-          Outside of work I like experimenting with data visualizations, reading about distributed systems,
-          and teaching newer devs how to think in requests and responses.
-        </p>
+        <p>I'm Del — a hands-on solutions architect who enjoys the “nerd stuff”: digging through logs, sketching sequence diagrams,
+        wiring mock APIs, and polishing user flows. Why tech? Because it's the best playground for curiosity:
+        you can imagine something at 9am and have a working prototype by lunch.</p>
       </div>
     </section>
 
-    <!-- PROJECTS -->
     <section id="projects">
       <h2>Featured Projects</h2>
       <div class="grid">
-        <article class="card project">
-          <h3>Cardholder Rewards Simulator</h3>
-          <p>Mock API + UI that models rewards accrual and redemption logic to demo loyalty scenarios for banks.</p>
-          <div class="stack">Stack: JS, JSON mocks, LocalStorage</div>
-          <p><a href="#" target="_blank" rel="noopener">View demo</a></p>
-        </article>
-        <article class="card project">
-          <h3>Dispute Intake Flow</h3>
-          <p>Clickable prototype to simplify fraud/dispute submission with context-aware guidance.</p>
-          <div class="stack">Stack: HTML/CSS, Vanilla JS</div>
-          <p><a href="#" target="_blank" rel="noopener">View prototype</a></p>
-        </article>
-        <article class="card project">
-          <h3>Data Sharing Playbook</h3>
-          <p>Guides + examples for secure analytics sharing and self-serve reporting.</p>
-          <div class="stack">Stack: Docs, Diagrams</div>
-          <p><a href="#" target="_blank" rel="noopener">Read overview</a></p>
-        </article>
+        <article class="card"><h3>Cardholder Rewards Simulator</h3><p>Mock API + UI that models rewards accrual and redemption logic.</p></article>
+        <article class="card"><h3>Dispute Intake Flow</h3><p>Prototype to simplify fraud/dispute submission with guidance.</p></article>
+        <article class="card"><h3>Data Sharing Playbook</h3><p>Guides + examples for secure analytics sharing.</p></article>
       </div>
     </section>
 
-    <!-- FUN FACT -->
     <section id="secret">
       <h2>Something You Probably Don’t Know</h2>
-      <div class="card">
-        <p>
-          I once built a “personal helpdesk” for my family that routed requests to me via SMS and
-          tracked SLAs. It was overkill — and also incredibly fun.
-        </p>
-      </div>
+      <div class="card"><p>I once built a “personal helpdesk” for my family that routed requests to me via SMS and tracked SLAs. Overkill, but fun.</p></div>
     </section>
 
-    <!-- IMAGE UPLOAD + INSPIRATION -->
     <section id="gallery">
       <h2>Image &amp; Inspiration</h2>
       <div class="card upload">
         <div>
           <label for="imgInput" class="muted">Upload a picture (PNG/JPG/WebP)</label>
-          <input id="imgInput" type="file" accept="image/*" style="margin-top:6px; margin-bottom:10px;" />
+          <input id="imgInput" type="file" accept="image/*" />
           <img id="preview" alt="Your uploaded preview appears here" class="preview" />
         </div>
         <div>
           <label for="inspo" class="muted">What inspired this picture?</label>
-          <textarea id="inspo" rows="8" placeholder="Write a short note about the inspiration behind your image..."></textarea>
-          <div class="row" style="margin-top:10px;">
-            <button id="saveNote" type="button">Save note on this device</button>
-            <button id="clearNote" type="button" style="background:transparent; color:var(--text); border:1px solid rgba(255,255,255,0.2);">Clear</button>
-          </div>
-          <p class="muted" style="margin-top:8px;">Notes are saved to your browser (local only). The image itself is not saved.</p>
+          <textarea id="inspo" rows="8">📸 Hosting an event at Harvard University on “The Future of AI”
+
+Three quick talking points I shared:
+1. AI as a Teammate — not a replacement, but a partner to boost creativity.
+2. Everyday AI — how small tools can make life easier, not harder.
+3. Ethics First — building tech that we’d trust our families to use.</textarea>
         </div>
       </div>
     </section>
 
-    <!-- CONTACT -->
     <section id="contact">
       <h2>Contact</h2>
       <div class="card">
-        <p class="muted">Want to talk? Reach me here:</p>
-        <div class="row">
-          <a class="pill" href="mailto:harrisdel56@gmail.com">Email</a>
-          <a class="pill" href="https://www.linkedin.com/in/delharris" target="_blank" rel="noopener">LinkedIn</a>
-          <button id="copyLink" type="button" title="Copy this page link">Copy Page Link</button>
-        </div>
+        <p>Want to talk? Reach me here:</p>
+        <a href="mailto:harrisdel56@gmail.com">harrisdel56@gmail.com</a>
       </div>
     </section>
 
-    <footer class="footer">
-      <span>&copy; <span id="year"></span> Del Harris</span>
-      <span class="muted">Built with simple HTML, CSS &amp; JS.</span>
-    </footer>
+    <footer class="footer"><span>&copy; <span id="year"></span> Del Harris</span></footer>
   </main>
 
   <script>
-    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Copy page link
-    document.getElementById('copyLink').addEventListener('click', () => {
-      const url = window.location.href;
-      navigator.clipboard.writeText(url).then(() => {
-        const btn = document.getElementById('copyLink');
-        const old = btn.textContent;
-        btn.textContent = 'Link copied!';
-        setTimeout(() => btn.textContent = old, 1500);
-      });
-    });
-
-    // Image preview (not persisted)
-    const imgInput = document.getElementById('imgInput');
-    const preview = document.getElementById('preview');
-    imgInput.addEventListener('change', (e) => {
-      const file = e.target.files && e.target.files[0];
-      if(!file) return;
-      const reader = new FileReader();
-      reader.onload = (ev) => { preview.src = ev.target.result; };
-      reader.readAsDataURL(file);
-    });
-
-    // Inspiration note — persist locally
-    const inspo = document.getElementById('inspo');
-    const KEY = 'del_portfolio_inspo';
-    inspo.value = localStorage.getItem(KEY) || '';
-    document.getElementById('saveNote').addEventListener('click', () => {
-      localStorage.setItem(KEY, inspo.value || '');
-      const b = document.getElementById('saveNote');
-      const t = b.textContent;
-      b.textContent = 'Saved!';
-      setTimeout(() => b.textContent = t, 1200);
-    });
-    document.getElementById('clearNote').addEventListener('click', () => {
-      inspo.value = '';
-      localStorage.removeItem(KEY);
-    });
+    const imgInput=document.getElementById('imgInput');const preview=document.getElementById('preview');
+    imgInput.addEventListener('change',(e)=>{const file=e.target.files&&e.target.files[0];if(!file)return;const r=new FileReader();r.onload=(ev)=>{preview.src=ev.target.result;};r.readAsDataURL(file);});
   </script>
 </body>
 </html>
